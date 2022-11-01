@@ -1,0 +1,97 @@
+﻿@model WebAPIDemo.Models.RegisterBindingModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+<div>
+    <div class="well">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="success">
+                    <td colspan="2">New User Registration</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.Email)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.Password)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Password)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.ConfirmPassword)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.ConfirmPassword)
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td colspan="2">
+                        <input id="btnRegister" class="btn btn-success" type="submit" name="Register" value="Register" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="successModal" class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <input class="close" type="button" name="name" value="×" data-dismiss="modal" />
+                    <h4>Success</h4>
+                </div>
+                <div class="modal-body">
+                    <h2>Registration successful.</h2>
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-success" type="button" name="name" value="CLOSE" data-dismiss="modal" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="divError" class="alert alert-danger collapse">
+        <input class="close" type="button" name="name" value="×" data-dismiss="alert" />
+        <div id="divErrorText"></div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnRegister").click(function () {
+                $.ajax({
+                    method: "POST",
+                    type: "POST",
+                    url: "/api/Account/Register",
+                    data: {
+                        email: $('#Email').val(),
+                        password: $('#Password').val(),
+                        confirmPassword: $('#ConfirmPassword').val(),
+                    },
+                    success: function () {
+                        $("#successModal").modal("toggle");
+                    },
+                    error: function (jqXHR) {
+                        $("#divErrorText").text(jqXHR.responseText);
+                        $("#divError").show('fade');
+                    },
+                });
+            });
+        });
+    </script>
+}
