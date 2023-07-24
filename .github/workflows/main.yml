@@ -1,0 +1,30 @@
+name: ASP.NET MVC CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.x' # Use the appropriate .NET version
+
+    - name: Build and Publish
+      run: |
+        dotnet restore
+        dotnet publish -c Release -o ./publish
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        branch: gh-pages
+        folder: ./publish
