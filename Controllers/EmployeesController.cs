@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,16 +17,64 @@ namespace WebAPIDemo.Controllers
         #endregion
 
         [HttpGet]
-        public IEnumerable<Employee> Employees()
+        public IHttpActionResult GetEmployees()
         {
-            return _context.Employees.ToList();
+            var employees = _context.Employees.ToList();
+            return Ok(employees);
         }
 
+        [HttpGet]
+        public IHttpActionResult GetEmployee(int id)
+        {
+            var employee = _context.Employees.Find(id);
+            if (employee == null)
+                return NotFound();
 
+            return Ok(employee);
+        }
 
+        [HttpPost]
+        public IHttpActionResult CreateEmployee(Employee employee)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
 
+            _context.Employees.Add(employee);
+            _context.SaveChanges();
 
+            return Created(new Uri(Request.RequestUri + "/" + employee.Id), employee);
+        }
 
+        [HttpPut]
+        public IHttpActionResult UpdateEmployee(int id, Employee employee)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
 
+            var existingEmployee = _context.Employees.Find(id);
+            if (existingEmployee == null)
+                return NotFound();
+
+            existingEmployee.Name = employee.Name;
+            existingEmployee.Department = employee.Department;
+            existingEmployee.Salary = employee.Salary;
+
+            _context.SaveChanges();
+
+            return Ok(existingEmployee);
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteEmployee(int id)
+        {
+            var employee = _context.Employees.Find(id);
+            if (employee == null)
+                return NotFound();
+
+            _context.Employees.Remove(employee);
+            _context.SaveChanges();
+
+            return Ok(employee);
+        }
     }
 }
