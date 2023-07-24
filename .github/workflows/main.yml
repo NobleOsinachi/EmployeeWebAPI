@@ -1,4 +1,4 @@
-name: ASP.NET MVC CI/CD
+name: WEB API ASP.NET MVC CI/CD
 
 on:
   push:
