@@ -1,5 +1,5 @@
 
-# EmployeedWeb API Demo
+# Employee Web API Demo
 
 Used to fetch the database of employees to be used in another front-end employee management & payroll system. This project helped me understand the basics of creating a Web API and testing it using Postman.
 
@@ -7,18 +7,18 @@ Bootstrapped with the default MVC project template, it only has one `Employee` m
 
 ## Installation
 
-To run the EmployeedWeb API Demo locally, follow these steps:
+To run the Employee-Web API Demo locally, follow these steps:
 
 1. Clone the repository to your local machine using the following command:
 
 ```bash
-git clone https://github.com/your-username/EmployeedWeb-API-Demo.git
+git clone https://github.com/your-username/Employee-Web-API-Demo.git
 ```
 
 2. Change into the project directory:
 
 ```bash
-cd EmployeedWeb-API-Demo
+cd Employee-Web-API-Demo
 ```
 
 3. Install the required dependencies:
@@ -37,7 +37,7 @@ dotnet run
 
 ## Usage
 
-The EmployeedWeb API provides the following endpoints:
+The Employee-Web API provides the following endpoints:
 
 - `GET /api/employees`: Get a list of all employees.
 - `GET /api/employees/{id}`: Get a specific employee by ID.
